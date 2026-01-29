@@ -1,0 +1,30 @@
+import java.util.List;
+ 
+class Position {
+    double x;
+    double y;
+ 
+    Position(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+ 
+public class ReacquisitionPredictor {
+ 
+    public static void predictAndScan(
+            List<Position> history,
+            double vx,
+            double vy,
+            double deltaTimeSeconds) {
+ 
+        // Last known position
+        Position last = history.get(history.size() - 1);
+ 
+        // Predict future position
+        double predictedX = last.x + vx * deltaTimeSeconds;
+        double predictedY = last.y + vy * deltaTimeSeconds;
+ 
+        // Uncertainty radius (prediction zone)
+        double speed = Math.sqrt(vx * vx + vy * vy);
+        double uncertaintyRadius = speed * deltaTimeSeconds *
